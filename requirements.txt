@@ -1,3 +1,2 @@
-feast==0.17
+feast==0.18
 feast[redis]
-feast-snowflake==0.1.7

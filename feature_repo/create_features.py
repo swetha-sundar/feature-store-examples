@@ -1,8 +1,7 @@
 # This is an example feature definition file
 from datetime import timedelta
 from html import entities
-from feast import Entity, Feature, FeatureView, FeatureStore, ValueType
-from feast_snowflake import SnowflakeSource
+from feast import Entity, Feature, FeatureView, FeatureStore, SnowflakeSource, ValueType
 import pandas as pd
 from google.protobuf.json_format import MessageToDict
 import yaml
@@ -15,20 +14,26 @@ fs = FeatureStore(repo_path=".")
 database = yaml.safe_load(open("feature_store.yaml"))["offline_store"]["database"]
 
 driver_stats = SnowflakeSource(
-    table=f'"{database}"."PUBLIC"."DRIVER_STATS"',
+    database="{database}",
+    schema="PUBLIC",
+    table="DRIVER_STATS",
     #query = """ """,
     event_timestamp_column="event_timestamp",
     created_timestamp_column="created",
 )
 
 driver_hourly_stats = SnowflakeSource(
-    table=f'"{database}"."PUBLIC"."DRIVER_HOURLY_STATS"',
+    database="{database}",
+    schema="PUBLIC",
+    table="DRIVER_HOURLY_STATS",
     event_timestamp_column="datetime",
     created_timestamp_column="created",
 )
 
 customer_stats = SnowflakeSource(
-    table=f'"{database}"."PUBLIC"."CUSTOMER_STATS"',
+    database="{database}",
+    schema="PUBLIC",
+    table="CUSTOMER_STATS",
     event_timestamp_column="datetime",
     created_timestamp_column="created",
 )

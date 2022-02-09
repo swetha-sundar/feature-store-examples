@@ -2,7 +2,7 @@ registry: data/registry.db
 project: feature_repo
 provider: local
 offline_store:
-  type: feast_snowflake.SnowflakeOfflineStore
+  type: snowflake.offline
   account: <SNOWFLAKE_ACCOUNT_NAME> #Do not include 'snowflakecomputing.com'
   user: <SNOWFLAKE_USERNAME>
   password: <SNOWFLAKE_PASSWORD>
@@ -12,6 +12,3 @@ offline_store:
 online_store:
   type: redis
   connection_string: localhost:6379
-flags:
-  alpha_features: true
-  python_feature_server: true

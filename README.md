@@ -16,7 +16,7 @@ Feature Store example using Feast library, Snowflake as Offline Store and Redis 
 
 ## Usage Instructions for Feast
 
-NOTE: The example provided here works for `0.17` version of feast.
+NOTE: The example provided here works for `0.18` version of feast.
 
 1. Create a python virtual environment to install all libraries
     `virtualenv <env_name>`
