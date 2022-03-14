@@ -1,6 +1,5 @@
 from feast.infra.utils.snowflake_utils import (
     get_snowflake_conn,
-    write_pandas,
 )
 from snowflake.connector.pandas_tools import write_pandas
 from feast import FeatureStore
