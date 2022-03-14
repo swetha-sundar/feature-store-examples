@@ -1,3 +1,4 @@
 feast==0.18.1
-feast[redis]
-snowflake-connector-python
+snowflake-connector-python==2.7.4
+pyarrow==6.0.1
+cbtham-feast-az-provider

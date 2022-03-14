@@ -1,16 +1,16 @@
 registry:
-  path: https://featurestoresa.blob.core.windows.net/localregistry/one-registry.db
   registry_store_type: feast_azure_provider.registry_store.AzBlobRegistryStore
+  path: https://featurestoresa.blob.core.windows.net/localregistry/one-registry.db
 project: feature_repo
 provider: local
 offline_store:
   type: snowflake.offline
-  account: cp55835.southeast-asia.azure
-  user: SWSUNDAR
+  account: EP25695.east-us-2.azure
+  user: cornflake123
   password:
   role: ACCOUNTADMIN
   warehouse: COMPUTE_WH
-  database: HOME_CREDIT_FEATURES
+  database: CREDIT_FEATURES
 online_store:
   type: redis
   connection_string: localhost:6379
