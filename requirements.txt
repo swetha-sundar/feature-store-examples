@@ -1,2 +1,3 @@
-feast==0.18
+feast==0.18.1
 feast[redis]
+snowflake-connector-python

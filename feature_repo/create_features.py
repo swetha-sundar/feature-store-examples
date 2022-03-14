@@ -6,6 +6,7 @@ import pandas as pd
 from google.protobuf.json_format import MessageToDict
 import yaml
 
+
 fs = FeatureStore(repo_path=".")
 
 # Read data from Snowflake table
