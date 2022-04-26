@@ -1,0 +1,15 @@
+script: train.py
+arguments: []
+framework: Python
+environment:
+  python:
+    userManagedDependencies: false
+    interpreterPath: python
+    condaDependenciesFile: config/conda_dependencies.yaml
+  docker:
+    enabled: true
+    baseImage: "swsundaramlcr.azurecr.io/fslibbase:latest"
+  environmentVariables:
+    WS_SUBSCRIPTION_ID: "371e8e7f-bce0-4db0-9df5-d88805b41101"
+    WS_RESOURCE_GROUP: "mlops-rg"
+    WS_NAME: "mlops-AML-WS"

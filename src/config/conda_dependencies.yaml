@@ -1,0 +1,26 @@
+channels:
+- conda-forge
+- anaconda
+
+dependencies:
+- python=3.8.5
+- pip<=20.1
+
+- pip:
+  - azureml-core
+  - azure-cli
+  - azureml-defaults==1.40.0
+  - azure-keyvault==4.2.0
+  - azure-identity==1.9.0
+  - cloudpickle==2.0.0
+  - feast-azure-provider==0.3.0
+  - lightgbm==3.3.2
+  - mlflow
+  - pandas
+  - pyarrow==6.0.1
+  - pyodbc
+  - pytest
+  - seaborn
+  - snowflake-connector-python==2.7.4
+
+name: train_env

@@ -1,0 +1,45 @@
+{
+    "name": "riskmodel_env",
+    "version": null,
+    "environmentVariables": {
+        "EXAMPLE_ENV_VAR": "EXAMPLE_VALUE"
+    },
+    "python": {
+        "userManagedDependencies": true,
+        "interpreterPath": "python",
+        "condaDependenciesFile": "conda_dependencies.yaml",
+        "baseCondaEnvironment": null
+    },
+    "docker": {
+        "enabled": false,
+        "baseImage": "fslibbase:latest",
+        "baseDockerfile": null,
+        "sharedVolumes": true,
+        "shmSize": "2g",
+        "arguments": [],
+        "baseImageRegistry": {
+            "address": "swsundaramlcr.azurecr.io",
+            "username": null,
+            "password": null,
+            "registryIdentity": null
+        },
+        "platform": {
+            "os": "Linux",
+            "architecture": "amd64"
+        }
+    },
+    "spark": {
+        "repositories": [],
+        "packages": [],
+        "precachePackages": true
+    },
+    "databricks": {
+        "mavenLibraries": [],
+        "pypiLibraries": [],
+        "rcranLibraries": [],
+        "jarLibraries": [],
+        "eggLibraries": []
+    },
+    "r": null,
+    "inferencingStackVersion": null
+}

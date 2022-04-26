@@ -1,0 +1,31 @@
+image: python:latest
+stages:
+  - feature_registration
+
+before_script:
+  - apt-get update -qq && apt-get install -y -qq unixodbc unixodbc-dev
+  - pip install -r requirements.txt
+
+include:
+  - 'pipelines/templates/.variables.yml'
+
+register features to blob:
+  environment: ss-test
+  stage: feature_registration
+  script:
+       - echo "Install Azure CLI...."
+       - apt update
+       - apt-get install sudo -y
+       - "curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash"
+       - az --version
+       - echo "Login to Azure....."
+       - az login --identity --username $USER_MSI
+       - echo "Set Environment Variables for Feature Store Configuration....."
+       - export KEY_VAULT_NAME=$KEYVAULT_NAME
+       - export SNOWFLAKE_COMPUTE_NAME=${SNOWFLAKE_COMPUTE_NAME}
+       - export SNOWFLAKE_ROLE_NAME=${SNOWFLAKE_ROLE_NAME}
+       - echo "Register Features......"
+       - cd src
+       - python feature_definitions.py
+  tags:
+    - swetha-gitlab-runner

@@ -1,0 +1,39 @@
+image: python:latest
+
+include:
+  - 'pipelines/templates/.variables.yml'
+
+variables:
+  AKS_RESOURCE_ID: "/subscriptions/371e8e7f-bce0-4db0-9df5-d88805b41101/resourcegroups/mlops-RG/providers/Microsoft.ContainerService/managedClusters/aks"
+  AKS_COMPUTE_NAME: "aks-mltrain"
+
+stages:
+  - attach_ml_compute
+
+Attach AKS cluster in AML Workspace:
+  environment: ss-test
+  stage: attach_ml_compute
+  script:
+       - echo "Install Azure CLI...."
+       - apt update
+       - apt-get install sudo -y
+       - "curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash"
+       - az --version
+       - echo "Login to Azure....."
+       - az login --identity --username $USER_MSI
+       - echo "Install Azure ML Extension...."
+       - az extension add -n azure-cli-ml
+       - echo "Attach AKS cluster as training compute target in the AML Workspace......"
+       - az ml computetarget attach kubernetes -n ${AKS_COMPUTE_NAME} -i ${AKS_RESOURCE_ID} -g ${RESOURCE_GROUP} -w ${AML_WORKSPACE}
+       - STATUS=$(az ml computetarget show -n ${AKS_COMPUTE_NAME} -w ${AML_WORKSPACE} -g ${RESOURCE_GROUP} --query provisioningState)
+       - |
+        while [ $STATUS = "Creating" ]
+          do
+            sleep 2
+            STATUS=$(az ml computetarget show -n ${AKS_COMPUTE_NAME} -w ${AML_WORKSPACE} -g ${RESOURCE_GROUP} --query provisioningState)
+            echo Status $STATUS
+          done
+
+  tags:
+    - swetha-gitlab-runner
+

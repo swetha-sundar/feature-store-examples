@@ -1,0 +1,16 @@
+project: dev
+registry:
+  registry_store_type: feast_azure_provider.registry_store.AzBlobRegistryStore
+  path: ${REGISTRY_PATH}
+provider: feast_azure_provider.azure_provider.AzureProvider
+offline_store:
+  type: snowflake.offline
+  account: ${SNOWFLAKE_ACC}
+  user: ${SNOWFLAKE_USER}
+  password: ${SNOWFLAKE_PASS}
+  role: ${SNOWFLAKE_ROLE_NAME} #eg:ACCOUNTADMIN
+  warehouse: ${SNOWFLAKE_COMPUTE_NAME} #eg:COMPUTE_WH
+  database: HOME_CREDIT_FEATURES
+online_store:
+    type: redis
+    connection_string: localhost:6379

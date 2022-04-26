@@ -1,31 +1,25 @@
-# Feature Store for ML
+# Feature Store
 
-## Overview
+Feature Store using Feast in Azure
 
-Feature Store example using Feast library, Snowflake as Offline Store and Redis  as  Online Store
+## Getting started
 
-## Prerequisites
+TBD
 
-1. Ensure you have a Snowflake Account with the following setup:
-    - a compute instance/warehouse
-    - a database created for your data source
-    - a role created with read/write privileges on the database
+## Architecture
 
-2. Ensure your Redis local server/instance is up and running
-3. Update the `feature_store.yaml` file with your Snowflake account details and database name
+![](./docs/img/architecture-ds-platform.jpg)
 
-## Usage Instructions for Feast
+## Workflows
 
-NOTE: The example provided here works for `0.18` version of feast.
+### Add a new Feature using Feature Store (CI)
 
-1. Create a python virtual environment to install all libraries
-    `virtualenv <env_name>`
-2. Activate the virtual environment
-    `source <env_name>/bin/activate`
-3. Install all dependencies required for the example
-    `pip install -r requirements.txt`
-4. Run the following commands from `feature_repo` directory
-5. To upload feature values(data) into your database, run `python upload_data.py`
-6. To create the **feature registry** and register the features, run `python create_features.py`
-7. To consume/fetch the features from offline store(Snowflake), run `python consume_features.py`
-8. To fetch feature from online store(Redis), run `python get_online_features.py`
+![ci-add-feature-workflow](./docs/img/ci-add-feature-workflow.jpg)
+
+### Feature Values Generation and Definition Registration (CD)
+
+![cd-feature-generation](./docs/img/cd-feature-generation-registration.jpg)
+
+### Feature Consumption during Model Training and Serving
+
+![feature-consumption-workflow](./docs/img/feature-consumption-workflow.jpg)

@@ -1,3 +1,6 @@
-feast==0.18.1
-feast[redis]
-snowflake-connector-python
+snowflake-connector-python==2.7.4
+pyarrow==6.0.1
+feast-azure-provider==0.3.0
+azure-keyvault-secrets
+azure-identity
+azureml-core

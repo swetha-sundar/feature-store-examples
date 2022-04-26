@@ -1,0 +1,16 @@
+{
+    "Name": "Data Scientist NoDelete ",
+    "IsCustom": true,
+    "Description": "Can run experiment, create compute but can't delete.",
+    "Actions": [
+        "*"
+    ],
+    "NotActions": [
+        "Microsoft.MachineLearningServices/workspaces/*/delete",
+        "Microsoft.MachineLearningServices/workspaces/computes/*/delete",
+        "Microsoft.Authorization/*/write"
+    ],
+    "AssignableScopes": [
+        "/subscriptions/371e8e7f-bce0-4db0-9df5-d88805b41101/resourceGroups/mlops-RG/providers/Microsoft.MachineLearningServices/workspaces/mlops-AML-WS"
+    ]
+}

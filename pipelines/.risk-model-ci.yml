@@ -1,0 +1,35 @@
+image: python:latest
+
+include:
+  - 'pipelines/templates/.variables.yml'
+
+variables:
+  RESOURCE_GROUP: "mlops-RG"
+  AML_WORKSPACE: "mlops-AML-WS"
+  AKS_COMPUTE_NAME: "aks-mltrain"
+  AML_EXPERIMENT_NAME: "risk-model-expt"
+  AML_BASE_IMAGE: "swsundaramlcr.azurecr.io/fslibbase:latest"
+
+stages:
+  - train_register
+
+Train Risk Model:
+  environment: ss-test
+  stage: train_register
+  script:
+       - echo "Install Azure CLI...."
+       - apt update
+       - apt-get install sudo -y
+       - "curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash"
+       - az --version
+       - echo "Login to Azure....."
+       - az login --identity --username $USER_MSI
+       - echo "Install Azure ML Extension...."
+       - az extension add -n azure-cli-ml
+       - cd src/
+       - az ml folder attach -w ${AML_WORKSPACE} -g ${RESOURCE_GROUP}
+       - echo "Run the Azure ML Training Job on AKS"
+       - az ml run submit-script --ct ${AKS_COMPUTE_NAME} -e ${AML_EXPERIMENT_NAME} -g ${RESOURCE_GROUP} -w ${AML_WORKSPACE} --subscription-id $SUBSCRIPTION_ID -c config/train --source-directory . risk_model/train.py
+
+  tags:
+    - swetha-gitlab-runner
