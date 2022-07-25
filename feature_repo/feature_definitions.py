@@ -9,7 +9,7 @@ from feast import ValueType
 from google.protobuf.json_format import MessageToDict
 import yaml
 
-#Configuration
+# Configuration
 repo_path = "./feature_repo"
 fs = FeatureStore(repo_path)
 config_path = repo_path + "/feature_store.yaml"
@@ -18,7 +18,7 @@ database_name = yaml.safe_load(open(config_path))["offline_store"]["database"]
 print("Database Source: ", database_name)
 print("\n")
 ##
-###Source Data
+# Source Data
 ##
 bureau_feature_table = SnowflakeSource(
     database=database_name,
@@ -41,10 +41,11 @@ customer_info_table = SnowflakeSource(
     event_timestamp_column="EVENT_TIMESTAMP",
 )
 
-#Entity definition
-customer =  Entity(name="SK_ID_CURR", value_type=ValueType.INT64, description="customer id",)
+# Entity definition
+customer = Entity(name="SK_ID_CURR", value_type=ValueType.INT64,
+                  description="customer id",)
 
-#Feature View(s) definition
+# Feature View(s) definition
 bureau_view = FeatureView(
     name="bureau_feature_view",
     entities=["SK_ID_CURR"],
@@ -63,7 +64,7 @@ previous_loan_view = FeatureView(
     tags={},
 )
 
-#Feature View definition
+# Feature View definition
 customer_view = FeatureView(
     name="customer_info_view",
     entities=["SK_ID_CURR"],
@@ -93,20 +94,21 @@ customer_view = FeatureView(
     tags={},
 )
 
-#Feature Service Definition
+# Feature Service Definition
 risk_model_bureau_fs = FeatureService(
     name="risk_model_fs",
     features=[bureau_view, previous_loan_view]
 )
 
-#Feature Registration
-fs.apply([customer, bureau_view, previous_loan_view, customer_view, risk_model_bureau_fs])
+# Feature Registration
+fs.apply([customer, bureau_view, previous_loan_view,
+         customer_view, risk_model_bureau_fs])
 
 # List features from registry
 print("====FEATURE VIEWS====")
 fv_list = fs.list_feature_views()
 for fv in fv_list:
-    d=MessageToDict(fv.to_proto())
+    d = MessageToDict(fv.to_proto())
     print("Feature View Name:", d['spec']['name'])
     print("Entities:", d['spec']['entities'])
     print("Features:", d['spec']['features'])
@@ -116,7 +118,7 @@ for fv in fv_list:
 print("====FEATURE SERVICE====")
 fs_list = fs.list_feature_services()
 for fserv in fs_list:
-    d=MessageToDict(fserv.to_proto())
+    d = MessageToDict(fserv.to_proto())
     print("Feature Service Name:", d['spec']['name'])
     print("Feature Views:", d['spec']['features'])
     print("\n")
