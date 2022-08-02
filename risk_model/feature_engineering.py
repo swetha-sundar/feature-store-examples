@@ -13,7 +13,7 @@ installments_payments = pd.read_csv('../data/installments_payments.csv')
 pos_cash_balance = pd.read_csv('../data/POS_CASH_balance.csv')
 previous_application = pd.read_csv('../data/previous_application.csv')
 
-application_train['EVENT_TIMESTAMP'] = datetime.datetime(2022, 2, 24)
+application_train['EVENT_TIMESTAMP'] = datetime.datetime(2022, 8, 3)
 application_train['CREATED_TIMESTAMP'] = datetime.datetime.now()
 
 
@@ -149,7 +149,7 @@ def bureauFeatures(bureau, bureau_balance):
 
 bureau_features = bureauFeatures(bureau, bureau_balance)
 bureau_features = bureau_features.reset_index()
-bureau_features['EVENT_TIMESTAMP'] = datetime.datetime(2022, 2, 24)
+bureau_features['EVENT_TIMESTAMP'] = datetime.datetime(2022, 8, 3)
 bureau_features['CREATED_TIMESTAMP'] = datetime.datetime.now()
 bureau_features.to_parquet('../data/bureau_feature_table.parquet')
 
@@ -217,7 +217,7 @@ credit_card_balance_features = creditCardFeatures(credit_card_balance)
 prev_loan_features = installment_payments_features.join(
     credit_card_balance_features, on="SK_ID_CURR").reset_index()
 prev_loan_features = prev_loan_features.fillna(0)
-prev_loan_features['EVENT_TIMESTAMP'] = datetime.datetime(2022, 2, 24)
+prev_loan_features['EVENT_TIMESTAMP'] = datetime.datetime(2022, 8, 3)
 prev_loan_features['EVENT_TIMESTAMP'] = datetime.datetime.now()
 
 prev_loan_features.to_parquet('../data/previous_loan_features_table.parquet')
