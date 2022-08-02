@@ -1,0 +1,19 @@
+azureml-core
+azure-cli
+azureml-defaults==1.35.0
+azure-keyvault==4.2.0
+azure-identity==1.9.0
+# cloudpickle==2.0.0
+# feast-azure-provider==0.3.0
+# lightgbm==3.3.2
+# mlflow
+# pandas
+# pyarrow==6.0.1
+# pyodbc
+# pytest
+# seaborn
+# redis==4.2.2
+# flask==1.1.2
+# Jinja2<3.1
+# joblib==1.1.0
+# itsdangerous==2.0.1
