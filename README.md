@@ -8,13 +8,13 @@ TBD
 
 ## Architecture
 
-![](./docs/img/architecture-ds-platform.jpg)
+![example-feature-store-azure-architecture](./docs/img/architecture-ds-platform.png)
 
 ## Workflows
 
 ### Add a new Feature using Feature Store (CI)
 
-![ci-add-feature-workflow](./docs/img/ci-add-feature-workflow.jpg)
+![ci-add-feature-workflow](./docs/img/ci-add-feature-workflow.png)
 
 ### Feature Values Generation and Definition Registration (CD)
 
