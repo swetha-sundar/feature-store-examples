@@ -1,16 +1,16 @@
+project: creditriskmodel
 registry:
-  path: https://featurestoresa.blob.core.windows.net/localregistry/one-registry.db
   registry_store_type: feast_azure_provider.registry_store.AzBlobRegistryStore
-project: feature_repo
-provider: local
+  path: ${REGISTRY_PATH}
+provider: feast_azure_provider.azure_provider.AzureProvider
 offline_store:
   type: snowflake.offline
-  account: cp55835.southeast-asia.azure
-  user: SWSUNDAR
-  password:
-  role: ACCOUNTADMIN
+  account: ${SNOWFLAKE_ACCOUNT}
+  user: ${SNOWFLAKE_USER}
+  password: ${SNOWFLAKE_PASS}
+  role: ${SNOWFLAKE_ROLE}
   warehouse: COMPUTE_WH
-  database: HOME_CREDIT_FEATURES
+  database: CREDIT_RISK_DATA
 online_store:
-  type: redis
-  connection_string: localhost:6379
+    type: redis
+    connection_string: localhost:6379
