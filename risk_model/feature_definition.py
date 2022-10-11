@@ -64,45 +64,14 @@ previous_loan_view = FeatureView(
     tags={},
 )
 
-# Feature View definition
-customer_view = FeatureView(
-    name="customer_info_view",
-    entities=["SK_ID_CURR"],
-    ttl=timedelta(days=100),
-    features=[
-        Feature(name="OCCUPATION_TYPE", dtype=ValueType.STRING),
-        Feature(name="AMT_INCOME_TOTAL", dtype=ValueType.FLOAT),
-        Feature(name="NAME_INCOME_TYPE", dtype=ValueType.STRING),
-        Feature(name="DAYS_LAST_PHONE_CHANGE", dtype=ValueType.FLOAT),
-        Feature(name="ORGANIZATION_TYPE", dtype=ValueType.STRING),
-        Feature(name="AMT_CREDIT", dtype=ValueType.FLOAT),
-        Feature(name="AMT_GOODS_PRICE", dtype=ValueType.FLOAT),
-        Feature(name="DAYS_REGISTRATION", dtype=ValueType.FLOAT),
-        Feature(name="AMT_ANNUITY", dtype=ValueType.FLOAT),
-        Feature(name="CODE_GENDER", dtype=ValueType.STRING),
-        Feature(name="DAYS_ID_PUBLISH", dtype=ValueType.INT64),
-        Feature(name="NAME_EDUCATION_TYPE", dtype=ValueType.STRING),
-        Feature(name="DAYS_EMPLOYED", dtype=ValueType.INT64),
-        Feature(name="DAYS_BIRTH", dtype=ValueType.INT64),
-        Feature(name="EXT_SOURCE_1", dtype=ValueType.FLOAT),
-        Feature(name="EXT_SOURCE_2", dtype=ValueType.FLOAT),
-        Feature(name="EXT_SOURCE_3", dtype=ValueType.FLOAT),
-    ],
-
-    online=True,
-    batch_source=customer_info_table,
-    tags={},
-)
-
 # Feature Service Definition
 credit_risk_model_fs = FeatureService(
     name="credit_risk_model_fs",
-    features=[customer_view, bureau_view, previous_loan_view[["AMT_BALANCE"]]]
+    features=[bureau_view, previous_loan_view[["AMT_BALANCE"]]]
 )
 
 # Feature Registration
-fs.apply([customer, bureau_view, previous_loan_view,
-         customer_view, credit_risk_model_fs])
+fs.apply([customer, bureau_view, previous_loan_view, credit_risk_model_fs])
 
 # List features from registry
 print("====FEATURE VIEWS====")

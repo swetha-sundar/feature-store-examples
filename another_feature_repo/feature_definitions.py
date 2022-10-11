@@ -8,15 +8,15 @@ from feast import ValueType
 from google.protobuf.json_format import MessageToDict
 import yaml
 
-#Configuration
-repo_path = "./another_feature_repo"
+# Configuration
+repo_path = "."
 fs = FeatureStore(repo_path)
 config_path = repo_path + "/feature_store.yaml"
 database_name = yaml.safe_load(open(config_path))["offline_store"]["database"]
 print("DATABASE SOURCE:", database_name)
 print("\n")
 
-#Source Data
+# Source Data
 customer_info_table = SnowflakeSource(
     database=database_name,
     schema="PUBLIC",
@@ -24,10 +24,11 @@ customer_info_table = SnowflakeSource(
     event_timestamp_column="EVENT_TIMESTAMP",
 )
 
-#Entity definition
-customer =  Entity(name="SK_ID_CURR", value_type=ValueType.INT64, description="customer id",)
+# Entity definition
+customer = Entity(name="SK_ID_CURR", value_type=ValueType.INT64,
+                  description="customer id",)
 
-#Feature View definition
+# Feature View definition
 customer_view = FeatureView(
     name="customer_info_view",
     entities=["SK_ID_CURR"],
@@ -57,14 +58,14 @@ customer_view = FeatureView(
     tags={},
 )
 
-#Feature Registration
+# Feature Registration
 fs.apply([customer, customer_view])
 
 # List features from registry
 print("====FEATURE VIEWS====")
 fv_list = fs.list_feature_views()
 for fv in fv_list:
-    d=MessageToDict(fv.to_proto())
+    d = MessageToDict(fv.to_proto())
     print("Feature View Name:", d['spec']['name'])
     print("Entities:", d['spec']['entities'])
     print("Features:", d['spec']['features'])
